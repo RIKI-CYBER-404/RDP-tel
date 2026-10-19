@@ -1,0 +1,23 @@
+
+name: Windows Runner
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 10
+
+    steps:
+      - name: Check Windows
+        shell: pwsh
+        run: |
+          Write-Host "Windows runner is working!"
+          Get-ComputerInfo |
+            Select-Object WindowsProductName,
+                          WindowsVersion
+          Write-Host "Runner test completed."
