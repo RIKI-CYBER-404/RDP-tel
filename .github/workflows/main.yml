@@ -1,23 +1,8 @@
 
-name: Windows Tailscale Check
-
-on:
-  workflow_dispatch:
-
-permissions:
-  contents: read
-
-jobs:
-  tailscale-check:
-    runs-on: windows-2022
-    timeout-minutes: 10
-
-    steps:
       - name: Connect to Tailscale
         uses: tailscale/github-action@v4
         with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
           tags: tag:ci
 
       - name: Verify connection
@@ -31,4 +16,3 @@ jobs:
           }
 
           Write-Output "Tailscale IPv4: $ip"
-          Write-Output "Connection check completed"
